@@ -7,7 +7,7 @@ import { GlassCard } from "@/components/common/GlassCard";
 export const Route = createFileRoute("/$")({
   head: () => ({
     meta: [
-      { title: "Page not found — QRFusion" },
+      { title: "Page not found — QRFusion | HackOS" },
       { name: "description", content: "This page does not exist in the QRFusion console." },
       { name: "robots", content: "noindex" },
     ],

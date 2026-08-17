@@ -33,13 +33,13 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/scanner")({
   head: () => ({
     meta: [
-      { title: "QR Scanner — Food Distribution" },
+      { title: "QR Scanner — QRFusion Event Scanner" },
       {
         name: "description",
-        content: "Scan participant QR codes to issue breakfast, lunch or dinner with duplicate protection.",
+        content: "Scan participant QR codes to verify identity, issue meals, goodies and track event activity with duplicate protection.",
       },
-      { property: "og:title", content: "QR Scanner — Food Distribution" },
-      { property: "og:description", content: "Issue meals by scanning participant QR codes." },
+      { property: "og:title", content: "QR Scanner — QRFusion Event Scanner" },
+      { property: "og:description", content: "Verify participants and issue items by scanning QR codes." },
     ],
   }),
   component: ScannerPage,
@@ -155,7 +155,7 @@ function ScannerPage() {
             </div>
             <div className="min-w-0">
               <p className="truncate font-semibold">{organiser}</p>
-              <p className="truncate text-xs text-muted-foreground">Food distribution counter</p>
+              <p className="truncate text-xs text-muted-foreground">Event operations counter</p>
             </div>
           </div>
           <div className="flex shrink-0 items-center gap-2">

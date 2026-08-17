@@ -79,11 +79,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "QRFusion — Hackathon Meal Distribution" },
+      { title: "QRFusion — Smart QR-Based Event Management | Powered by HackOS" },
       {
         name: "description",
         content:
-          "QR-powered meal distribution control room for hackathons: participants, organiser codes, live scans and reports.",
+          "QRFusion — smart QR-based event management for hackathons: identity verification, meal distribution, goodies, entry tracking, organiser operations and real-time analytics. A HackOS module.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

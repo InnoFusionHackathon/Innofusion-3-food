@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowRight, KeyRound, Loader2, Lock, Mail, ShieldCheck, UtensilsCrossed } from "lucide-react";
+import { ArrowRight, KeyRound, Loader2, Lock, Mail, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,16 +13,16 @@ import { authApi } from "@/services";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Sign in — QRFusion Management System" },
+      { title: "Sign in — QRFusion | Powered by HackOS" },
       {
         name: "description",
         content:
-          "Sign in as an admin or organiser to run QR-based hackathon meal distribution in real time.",
+          "Sign in as an admin or organiser to manage QR-based event operations — identity, meals, goodies, entry and analytics.",
       },
-      { property: "og:title", content: "Sign in — QRFusion Management System" },
+      { property: "og:title", content: "Sign in — QRFusion | Powered by HackOS" },
       {
         property: "og:description",
-        content: "Admin and organiser access for QR-based hackathon meal distribution.",
+        content: "Admin and organiser access for smart QR-based event management.",
       },
     ],
   }),
@@ -81,9 +81,16 @@ function LoginPage() {
           <h1 className="mt-5 font-display text-3xl font-bold sm:text-4xl">
             <span className="text-gradient">QRFusion</span>
           </h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Hackathon meal distribution, verified in one scan.
+          <p className="mt-1.5 text-sm font-medium text-foreground/80">
+            Smart QR-Based Event Management
           </p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            One QR. One Identity. Complete Event Control.
+          </p>
+          <div className="mt-3 flex items-center gap-1.5 rounded-full border border-border/40 bg-foreground/5 px-3 py-1">
+            <img src="/HackOS_Logo.png" alt="HackOS" className="h-4 w-4 object-contain" />
+            <span className="text-[10px] font-medium tracking-wide text-muted-foreground">Powered by HackOS</span>
+          </div>
         </div>
 
         <GlassCard className="p-6 sm:p-8">
@@ -200,7 +207,7 @@ function LoginPage() {
 
           <p className="mt-6 flex items-center justify-center gap-2 text-xs text-muted-foreground">
             <ShieldCheck className="h-3.5 w-3.5 text-primary" />
-            Every scan is verified and logged server-side.
+            Every scan is verified, logged, and tracked in real time.
           </p>
         </GlassCard>
       </motion.div>

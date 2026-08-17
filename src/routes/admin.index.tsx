@@ -22,13 +22,13 @@ import { dashboardApi } from "@/services";
 export const Route = createFileRoute("/admin/")({
   head: () => ({
     meta: [
-      { title: "Admin Dashboard — QRFusion" },
+      { title: "Admin Dashboard — QRFusion | HackOS" },
       {
         name: "description",
-        content: "Live meal distribution metrics, scan activity charts and duplicate attempts.",
+        content: "Live event management metrics, scan activity charts and duplicate detection.",
       },
-      { property: "og:title", content: "Admin Dashboard — QRFusion" },
-      { property: "og:description", content: "Live meal distribution metrics and scan activity." },
+      { property: "og:title", content: "Admin Dashboard — QRFusion | HackOS" },
+      { property: "og:description", content: "Live event management metrics and scan activity." },
     ],
   }),
   component: DashboardPage,
@@ -42,7 +42,7 @@ function DashboardPage() {
   });
 
   return (
-    <AdminLayout title="Dashboard" subtitle="Live overview of hackathon meal distribution">
+    <AdminLayout title="Dashboard" subtitle="Live overview of hackathon event operations">
       {isLoading || !data ? (
         <div className="space-y-6">
           <CardSkeleton count={8} />

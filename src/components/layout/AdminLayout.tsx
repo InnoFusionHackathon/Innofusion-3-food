@@ -61,13 +61,19 @@ function NavList({ onNavigate }: { onNavigate?: () => void }) {
 
 function Brand() {
   return (
-    <div className="flex items-center gap-3 px-2">
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl overflow-hidden bg-transparent">
-        <img src="/QRFusion.png" alt="QRFusion Logo" className="w-full h-full object-contain" />
+    <div className="flex flex-col gap-3 px-2">
+      <div className="flex items-center gap-3">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl overflow-hidden bg-transparent">
+          <img src="/QRFusion.png" alt="QRFusion Logo" className="w-full h-full object-contain" />
+        </div>
+        <div className="min-w-0">
+          <p className="truncate font-display text-base font-bold leading-tight">QRFusion</p>
+          <p className="truncate text-xs text-muted-foreground">Smart Event Management</p>
+        </div>
       </div>
-      <div className="min-w-0">
-        <p className="truncate font-display text-base font-bold leading-tight">QRFusion</p>
-        <p className="truncate text-xs text-muted-foreground">Management System</p>
+      <div className="flex items-center gap-1.5 rounded-lg border border-border/30 bg-foreground/[0.03] px-2.5 py-1">
+        <img src="/HackOS_Logo.png" alt="HackOS" className="h-3.5 w-3.5 object-contain" />
+        <span className="text-[10px] font-medium tracking-wide text-muted-foreground/70">Powered by HackOS</span>
       </div>
     </div>
   );

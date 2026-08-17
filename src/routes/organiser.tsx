@@ -13,15 +13,15 @@ import { authApi } from "@/services";
 export const Route = createFileRoute("/organiser")({
   head: () => ({
     meta: [
-      { title: "Organiser Login — Food Distribution Scanner" },
+      { title: "Organiser Login — QRFusion Scanner" },
       {
         name: "description",
-        content: "Validate your organiser code to open the food distribution QR scanner.",
+        content: "Validate your organiser code to open the QRFusion event scanner.",
       },
-      { property: "og:title", content: "Organiser Login — Food Distribution Scanner" },
+      { property: "og:title", content: "Organiser Login — QRFusion Scanner" },
       {
         property: "og:description",
-        content: "Validate your organiser code to open the food distribution QR scanner.",
+        content: "Validate your organiser code to open the QRFusion event scanner.",
       },
     ],
   }),
@@ -63,7 +63,7 @@ function OrganiserLogin() {
           <div className="mx-auto grid h-16 w-16 place-items-center rounded-3xl bg-brand-gradient text-primary-foreground">
             <ScanLine className="h-7 w-7" />
           </div>
-          <h1 className="mt-5 font-display text-2xl font-bold">Food Distribution Scanner</h1>
+          <h1 className="mt-5 font-display text-2xl font-bold">QRFusion Scanner</h1>
           <p className="mt-2 text-sm text-muted-foreground">
             Enter the code shared by the admin to begin your shift.
           </p>

@@ -21,13 +21,13 @@ import { scansApi } from "@/services";
 export const Route = createFileRoute("/admin/logs")({
   head: () => ({
     meta: [
-      { title: "Scan Logs — QRFusion" },
+      { title: "Scan Logs — QRFusion | HackOS" },
       {
         name: "description",
-        content: "Every meal scan with organiser, device, timestamp and duplicate detection status.",
+        content: "Every scan with organiser, device, timestamp and duplicate detection status.",
       },
-      { property: "og:title", content: "Scan Logs — QRFusion" },
-      { property: "og:description", content: "Audit every meal scan across the hackathon." },
+      { property: "og:title", content: "Scan Logs — QRFusion | HackOS" },
+      { property: "og:description", content: "Audit every scan across the hackathon." },
     ],
   }),
   component: LogsPage,

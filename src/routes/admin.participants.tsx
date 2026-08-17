@@ -42,13 +42,13 @@ import type { Participant } from "@/services/types";
 export const Route = createFileRoute("/admin/participants")({
   head: () => ({
     meta: [
-      { title: "Participants Management — QRFusion" },
+      { title: "Participants Management — QRFusion | HackOS" },
       {
         name: "description",
-        content: "Import, search, filter and manage hackathon participants and their meal status.",
+        content: "Import, search, filter and manage hackathon participants and their event status.",
       },
-      { property: "og:title", content: "Participants Management — QRFusion" },
-      { property: "og:description", content: "Manage participants, QR IDs and meal status." },
+      { property: "og:title", content: "Participants Management — QRFusion | HackOS" },
+      { property: "og:description", content: "Manage participants, QR IDs and event status." },
     ],
   }),
   component: ParticipantsPage,

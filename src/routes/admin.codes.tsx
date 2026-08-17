@@ -25,12 +25,12 @@ import type { OrganiserCode } from "@/services/types";
 export const Route = createFileRoute("/admin/codes")({
   head: () => ({
     meta: [
-      { title: "Organiser Codes — QRFusion" },
+      { title: "Organiser Codes — QRFusion | HackOS" },
       {
         name: "description",
-        content: "Generate time-limited organiser access codes for the food distribution scanner.",
+        content: "Generate time-limited organiser access codes for the QRFusion event scanner.",
       },
-      { property: "og:title", content: "Organiser Codes — QRFusion" },
+      { property: "og:title", content: "Organiser Codes — QRFusion | HackOS" },
       { property: "og:description", content: "Generate and revoke time-limited organiser codes." },
     ],
   }),

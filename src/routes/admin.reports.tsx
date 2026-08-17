@@ -18,13 +18,13 @@ import { reportsApi } from "@/services";
 export const Route = createFileRoute("/admin/reports")({
   head: () => ({
     meta: [
-      { title: "Reports — QRFusion" },
+      { title: "Reports — QRFusion | HackOS" },
       {
         name: "description",
-        content: "Download meal-wise, college-wise, hourly and daily distribution reports as CSV, Excel or PDF.",
+        content: "Download meal-wise, college-wise, hourly and daily event distribution reports as CSV, Excel or PDF.",
       },
-      { property: "og:title", content: "Reports — QRFusion" },
-      { property: "og:description", content: "Exportable meal distribution analytics." },
+      { property: "og:title", content: "Reports — QRFusion | HackOS" },
+      { property: "og:description", content: "Exportable event distribution analytics." },
     ],
   }),
   component: ReportsPage,
