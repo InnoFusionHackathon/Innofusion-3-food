@@ -34,8 +34,8 @@ http.interceptors.response.use(
     return response;
   },
   (error) => {
-    // If the server says we're unauthorized, our token is expired or invalid.
-    if (error.response?.status === 401) {
+    // If the server says we're unauthorized or forbidden, our token is expired or has wrong role.
+    if (error.response?.status === 401 || error.response?.status === 403) {
       if (typeof window !== "undefined") {
         window.localStorage.removeItem("sfqr_token");
         window.localStorage.removeItem("sfqr_role");
