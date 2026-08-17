@@ -240,3 +240,49 @@ export const reportsApi = {
       new Blob([""], { type: "application/octet-stream" }),
     ),
 };
+
+/* --------------------------------- entry ---------------------------------- */
+
+export const entryApi = {
+  /** GET /api/entry/stats */
+  getStats: () =>
+    withFallback(
+      async () => (await http.get("/entry/stats")).data as any,
+      {
+        totalParticipants: 80,
+        checkedIn: 67,
+        notCheckedIn: 13,
+        attendancePercentage: 83.75,
+        duplicateAttempts: 4,
+        firstCheckIn: "08:12 AM",
+        lastCheckIn: "11:34 AM",
+        peakHour: "09:00",
+        averageTime: "09:45 AM",
+        hourlyActivity: [
+          { hour: "08:00", scans: 10 },
+          { hour: "09:00", scans: 45 },
+          { hour: "10:00", scans: 12 },
+        ],
+      },
+    ),
+
+  /** GET /api/entry/export */
+  exportExcel: async () => {
+    const res = await http.get("/entry/export", { responseType: "blob" });
+    const url = window.URL.createObjectURL(new Blob([res.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "Innofusion_3.0_Entry_Attendance.xlsx");
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
+  },
+
+  /** POST /api/participants/:id/reset-entry */
+  resetEntry: (id: string) =>
+    withFallback(
+      async () => (await http.post(`/participants/${id}/reset-entry`)).data as Participant,
+      { ...mockParticipants[0], id } as Participant,
+    ),
+};

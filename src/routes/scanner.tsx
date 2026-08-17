@@ -16,6 +16,7 @@ import {
   ShieldAlert,
   Soup,
   Sun,
+  Ticket,
   UtensilsCrossed,
   Wifi,
 } from "lucide-react";
@@ -46,6 +47,7 @@ export const Route = createFileRoute("/scanner")({
 });
 
 const meals: { key: MealType; label: string; icon: typeof Coffee }[] = [
+  { key: "entry", label: "Entry", icon: Ticket },
   { key: "goodies", label: "Goodies", icon: Gift },
   { key: "day1_snacks", label: "Day-1 Snacks", icon: Cookie },
   { key: "day1_lunch", label: "Day-1 Lunch", icon: Soup },

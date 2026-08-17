@@ -9,6 +9,7 @@ import {
   Users,
   FileBarChart,
   UtensilsCrossed,
+  Ticket,
 } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { motion } from "motion/react";
@@ -20,6 +21,7 @@ import { cn } from "@/lib/utils";
 
 const nav = [
   { label: "Dashboard", to: "/admin", icon: LayoutDashboard, exact: true },
+  { label: "Entry Management", to: "/admin/entry", icon: Ticket, exact: false },
   { label: "Participants", to: "/admin/participants", icon: Users, exact: false },
   { label: "Organiser Codes", to: "/admin/codes", icon: QrCode, exact: false },
   { label: "Scan Logs", to: "/admin/logs", icon: ScanLine, exact: false },

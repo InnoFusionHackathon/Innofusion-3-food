@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import {
   Activity,
@@ -9,6 +9,7 @@ import {
   Soup,
   Timer,
   Users,
+  Ticket,
 } from "lucide-react";
 import { motion } from "motion/react";
 import { AdminLayout } from "@/components/layout/AdminLayout";
@@ -17,7 +18,7 @@ import { StatCard } from "@/components/common/StatCard";
 import { CardSkeleton, TableSkeleton } from "@/components/common/States";
 import { StatusBadge, scanTone } from "@/components/common/StatusBadge";
 import { HourlyBarChart, MealPieChart, MealTrendChart } from "@/components/charts/Charts";
-import { dashboardApi } from "@/services";
+import { dashboardApi, entryApi } from "@/services";
 
 export const Route = createFileRoute("/admin/")({
   head: () => ({
@@ -63,6 +64,59 @@ function DashboardPage() {
             <StatCard index={9} label="Duplicate Attempts" value={data.duplicateAttempts} icon={AlertTriangle} accent="danger" hint="blocked automatically" />
             <StatCard index={10} label="Active Organisers" value={data.activeOrganisers} icon={Activity} hint="scanning right now" />
             <StatCard index={11} label="Pending Meals" value={data.pendingMeals} icon={Timer} accent="accent" hint="not yet collected" />
+          </div>
+
+          {/* Entry Attendance Card */}
+          <div className="bg-card border rounded-2xl p-6 shadow-sm">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2 text-primary">
+                <Ticket className="w-5 h-5" />
+                <h2 className="font-semibold text-lg">Entry Attendance</h2>
+              </div>
+              <div className="text-sm text-muted-foreground font-medium bg-muted px-3 py-1 rounded-full">
+                {data.entryCheckedIn} / {data.totalParticipants}
+              </div>
+            </div>
+            
+            <div className="space-y-4">
+              <div className="flex justify-between items-end">
+                <div>
+                  <div className="text-3xl font-bold">
+                    {data.totalParticipants > 0 
+                      ? Math.round((data.entryCheckedIn / data.totalParticipants) * 100) 
+                      : 0}%
+                  </div>
+                  <div className="text-sm text-muted-foreground font-medium">Checked In</div>
+                </div>
+                
+                <div className="text-right text-sm">
+                  <div className="text-green-600 dark:text-green-400 font-medium">{data.entryCheckedIn} Checked In</div>
+                  <div className="text-red-500 dark:text-red-400 font-medium">{data.entryNotCheckedIn} Not Checked In</div>
+                </div>
+              </div>
+              
+              <div className="h-3 w-full bg-muted rounded-full overflow-hidden flex">
+                <div 
+                  className="h-full bg-primary transition-all duration-1000 ease-out"
+                  style={{ width: `${data.totalParticipants > 0 ? (data.entryCheckedIn / data.totalParticipants) * 100 : 0}%` }}
+                />
+              </div>
+              
+              <div className="flex gap-3 pt-2">
+                <Link 
+                  to="/admin/entry"
+                  className="flex-1 bg-secondary text-secondary-foreground hover:bg-secondary/80 px-4 py-2 rounded-xl text-sm font-medium transition-colors text-center"
+                >
+                  View Attendance
+                </Link>
+                <button 
+                  onClick={() => entryApi.exportExcel()} 
+                  className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-xl text-sm font-medium transition-colors"
+                >
+                  Download Excel
+                </button>
+              </div>
+            </div>
           </div>
 
           <div className="grid gap-4 xl:grid-cols-3">

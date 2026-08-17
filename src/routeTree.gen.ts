@@ -16,6 +16,7 @@ import { Route as OrganiserRouteImport } from './routes/organiser'
 import { Route as ScannerRouteImport } from './routes/scanner'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminCodesRouteImport } from './routes/admin.codes'
+import { Route as AdminEntryRouteImport } from './routes/admin.entry'
 import { Route as AdminLogsRouteImport } from './routes/admin.logs'
 import { Route as AdminParticipantsRouteImport } from './routes/admin.participants'
 import { Route as AdminReportsRouteImport } from './routes/admin.reports'
@@ -55,6 +56,11 @@ const AdminCodesRoute = AdminCodesRouteImport.update({
   path: '/codes',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminEntryRoute = AdminEntryRouteImport.update({
+  id: '/entry',
+  path: '/entry',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminLogsRoute = AdminLogsRouteImport.update({
   id: '/logs',
   path: '/logs',
@@ -78,6 +84,7 @@ export interface FileRoutesByFullPath {
   '/organiser': typeof OrganiserRoute
   '/scanner': typeof ScannerRoute
   '/admin/codes': typeof AdminCodesRoute
+  '/admin/entry': typeof AdminEntryRoute
   '/admin/logs': typeof AdminLogsRoute
   '/admin/participants': typeof AdminParticipantsRoute
   '/admin/reports': typeof AdminReportsRoute
@@ -89,6 +96,7 @@ export interface FileRoutesByTo {
   '/organiser': typeof OrganiserRoute
   '/scanner': typeof ScannerRoute
   '/admin/codes': typeof AdminCodesRoute
+  '/admin/entry': typeof AdminEntryRoute
   '/admin/logs': typeof AdminLogsRoute
   '/admin/participants': typeof AdminParticipantsRoute
   '/admin/reports': typeof AdminReportsRoute
@@ -102,6 +110,7 @@ export interface FileRoutesById {
   '/organiser': typeof OrganiserRoute
   '/scanner': typeof ScannerRoute
   '/admin/codes': typeof AdminCodesRoute
+  '/admin/entry': typeof AdminEntryRoute
   '/admin/logs': typeof AdminLogsRoute
   '/admin/participants': typeof AdminParticipantsRoute
   '/admin/reports': typeof AdminReportsRoute
@@ -116,6 +125,7 @@ export interface FileRouteTypes {
     | '/organiser'
     | '/scanner'
     | '/admin/codes'
+    | '/admin/entry'
     | '/admin/logs'
     | '/admin/participants'
     | '/admin/reports'
@@ -127,6 +137,7 @@ export interface FileRouteTypes {
     | '/organiser'
     | '/scanner'
     | '/admin/codes'
+    | '/admin/entry'
     | '/admin/logs'
     | '/admin/participants'
     | '/admin/reports'
@@ -139,6 +150,7 @@ export interface FileRouteTypes {
     | '/organiser'
     | '/scanner'
     | '/admin/codes'
+    | '/admin/entry'
     | '/admin/logs'
     | '/admin/participants'
     | '/admin/reports'
@@ -204,6 +216,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminCodesRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/entry': {
+      id: '/admin/entry'
+      path: '/entry'
+      fullPath: '/admin/entry'
+      preLoaderRoute: typeof AdminEntryRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/logs': {
       id: '/admin/logs'
       path: '/logs'
@@ -230,6 +249,7 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminCodesRoute: typeof AdminCodesRoute
+  AdminEntryRoute: typeof AdminEntryRoute
   AdminLogsRoute: typeof AdminLogsRoute
   AdminParticipantsRoute: typeof AdminParticipantsRoute
   AdminReportsRoute: typeof AdminReportsRoute
@@ -238,6 +258,7 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminCodesRoute: AdminCodesRoute,
+  AdminEntryRoute: AdminEntryRoute,
   AdminLogsRoute: AdminLogsRoute,
   AdminParticipantsRoute: AdminParticipantsRoute,
   AdminReportsRoute: AdminReportsRoute,

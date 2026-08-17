@@ -1,4 +1,4 @@
-export type MealType = "goodies" | "day1_snacks" | "day1_lunch" | "day1_evening_snacks" | "day1_dinner" | "day2_breakfast" | "day2_lunch";
+export type MealType = "entry" | "goodies" | "day1_snacks" | "day1_lunch" | "day1_evening_snacks" | "day1_dinner" | "day2_breakfast" | "day2_lunch";
 
 export type MealStatus = "collected" | "pending";
 
@@ -16,6 +16,11 @@ export interface Participant {
   photo: string;
   meals: Record<MealType, MealStatus>;
   mealHistory: { meal: MealType; time: string; organiser: string }[];
+  entry?: {
+    checkedIn: boolean;
+    checkedInAt: string | null;
+    checkedInBy: string | null;
+  };
 }
 
 export interface DashboardStats {
@@ -27,6 +32,8 @@ export interface DashboardStats {
   day1DinnerClaimed: number;
   day2BreakfastClaimed: number;
   day2LunchClaimed: number;
+  entryCheckedIn: number;
+  entryNotCheckedIn: number;
   todayScans: number;
   duplicateAttempts: number;
   activeOrganisers: number;
@@ -64,6 +71,19 @@ export interface ReportData {
   collegeWise: { name: string; value: number }[];
   hourly: { hour: string; scans: number }[];
   daily: { day: string; scans: number }[];
+}
+
+export interface EntryStats {
+  totalParticipants: number;
+  checkedIn: number;
+  notCheckedIn: number;
+  attendancePercentage: number;
+  duplicateAttempts: number;
+  firstCheckIn: string;
+  lastCheckIn: string;
+  peakHour: string;
+  averageTime: string;
+  hourlyActivity: { hour: string; scans: number }[];
 }
 
 export interface ScanResult {
