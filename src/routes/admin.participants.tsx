@@ -189,6 +189,7 @@ function ParticipantsPage() {
                   <TableHead>QR ID</TableHead>
                   <TableHead>College</TableHead>
                   <TableHead>Team</TableHead>
+                  <TableHead>Entry</TableHead>
                   <TableHead>Goodies</TableHead>
                   <TableHead>D1-Snacks</TableHead>
                   <TableHead>D1-Lunch</TableHead>
@@ -210,6 +211,11 @@ function ParticipantsPage() {
                     <TableCell className="font-mono text-xs text-muted-foreground">{p.qrId}</TableCell>
                     <TableCell className="text-sm">{p.college}</TableCell>
                     <TableCell className="text-sm">{p.team}</TableCell>
+                    <TableCell>
+                      <StatusBadge tone={p.entry?.checkedIn ? "success" : "danger"}>
+                        {p.entry?.checkedIn ? "Checked In" : "Pending"}
+                      </StatusBadge>
+                    </TableCell>
                     {(["goodies", "day1_snacks", "day1_lunch", "day1_evening_snacks", "day1_dinner", "day2_breakfast", "day2_lunch"] as const).map((m) => (
                       <TableCell key={m}>
                         <StatusBadge tone={mealTone(p.meals[m])}>
