@@ -82,6 +82,19 @@ export const participantsApi = {
       new Blob([""], { type: "text/csv" }),
     ),
 
+  /** GET /api/participants/export-excel */
+  exportExcel: async () => {
+    const res = await http.get("/participants/export-excel", { responseType: "blob" });
+    const url = window.URL.createObjectURL(new Blob([res.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "participants_export.xlsx");
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
+  },
+
   /** POST /api/qr/generate */
   generateQr: (ids: string[]) =>
     withFallback(

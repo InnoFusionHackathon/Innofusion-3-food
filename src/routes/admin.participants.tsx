@@ -119,6 +119,13 @@ function ParticipantsPage() {
           <Button
             variant="secondary"
             className="rounded-2xl"
+            onClick={() => participantsApi.exportExcel().then(() => toast.success("Export requested"))}
+          >
+            <Download className="mr-2 h-4 w-4" /> Export Excel
+          </Button>
+          <Button
+            variant="secondary"
+            className="rounded-2xl"
             onClick={() => participantsApi.exportCsv().then(() => toast.success("Export requested"))}
           >
             <Download className="mr-2 h-4 w-4" /> Export CSV
