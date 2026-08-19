@@ -204,6 +204,7 @@ function ParticipantsPage() {
                   <TableHead>D1-Dinner</TableHead>
                   <TableHead>D2-Brkfast</TableHead>
                   <TableHead>D2-Lunch</TableHead>
+                  <TableHead>D2-Snacks</TableHead>
                   <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
@@ -223,7 +224,7 @@ function ParticipantsPage() {
                         {p.entry?.checkedIn ? "Checked In" : "Pending"}
                       </StatusBadge>
                     </TableCell>
-                    {(["goodies", "day1_snacks", "day1_lunch", "day1_evening_snacks", "day1_dinner", "day2_breakfast", "day2_lunch"] as const).map((m) => (
+                    {(["goodies", "day1_snacks", "day1_lunch", "day1_evening_snacks", "day1_dinner", "day2_breakfast", "day2_lunch", "day2_snacks"] as const).map((m) => (
                       <TableCell key={m}>
                         <StatusBadge tone={mealTone(p.meals[m])}>
                           {p.meals[m] === "collected" ? "Collected" : "Pending"}
@@ -419,6 +420,7 @@ function ParticipantsPage() {
                   day1_dinner: fd.get("day1_dinner") === "on",
                   day2_breakfast: fd.get("day2_breakfast") === "on",
                   day2_lunch: fd.get("day2_lunch") === "on",
+                  day2_snacks: fd.get("day2_snacks") === "on",
                 };
                 participantsApi.updateMeals(editingMeals.id, meals).then(() => {
                   toast.success("Meal statuses updated!");
@@ -428,7 +430,7 @@ function ParticipantsPage() {
               }}
               className="space-y-4"
             >
-              {(["goodies", "day1_snacks", "day1_lunch", "day1_evening_snacks", "day1_dinner", "day2_breakfast", "day2_lunch"] as const).map((m) => (
+              {(["goodies", "day1_snacks", "day1_lunch", "day1_evening_snacks", "day1_dinner", "day2_breakfast", "day2_lunch", "day2_snacks"] as const).map((m) => (
                 <div key={m} className="flex items-center justify-between rounded-xl bg-foreground/5 p-3">
                   <Label htmlFor={`meal-${m}`} className="capitalize">{m.replace(/_/g, " ")}</Label>
                   <Switch id={`meal-${m}`} name={m} defaultChecked={editingMeals.meals[m] === "collected"} />

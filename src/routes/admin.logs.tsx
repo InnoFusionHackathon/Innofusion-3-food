@@ -74,6 +74,7 @@ function LogsPage() {
               <SelectItem value="day1_dinner">Day-1 Dinner</SelectItem>
               <SelectItem value="day2_breakfast">Day-2 Breakfast</SelectItem>
               <SelectItem value="day2_lunch">Day-2 Lunch</SelectItem>
+              <SelectItem value="day2_snacks">Day-2 Snacks</SelectItem>
             </SelectContent>
           </Select>
           <Select value={status} onValueChange={setStatus}>

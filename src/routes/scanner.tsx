@@ -55,6 +55,7 @@ const meals: { key: MealType; label: string; icon: typeof Coffee }[] = [
   { key: "day1_dinner", label: "Day-1 Dinner", icon: Moon },
   { key: "day2_breakfast", label: "Day-2 Breakfast", icon: Sun },
   { key: "day2_lunch", label: "Day-2 Lunch", icon: UtensilsCrossed },
+  { key: "day2_snacks", label: "Day-2 Snacks", icon: Cookie },
 ];
 
 function ScannerPage() {

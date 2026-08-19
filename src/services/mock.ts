@@ -39,6 +39,7 @@ export const mockParticipants: Participant[] = names.map((name, i) => {
   const day1_dinner = i % 6 === 0 ? "collected" : "pending";
   const day2_breakfast = i % 7 === 0 ? "collected" : "pending";
   const day2_lunch = i % 8 === 0 ? "collected" : "pending";
+  const day2_snacks = i % 9 === 0 ? "collected" : "pending";
   return {
     id: `p_${i + 1}`,
     name,
@@ -49,7 +50,7 @@ export const mockParticipants: Participant[] = names.map((name, i) => {
     phone: `+91 98${pad(i + 10)}${pad((i * 31) % 999)}0`,
     email: `${name.toLowerCase().replace(/\s+/g, ".")}@campus.edu`,
     photo: `https://i.pravatar.cc/160?img=${i + 5}`,
-    meals: { goodies, day1_snacks, day1_lunch, day1_evening_snacks, day1_dinner, day2_breakfast, day2_lunch } as Participant["meals"],
+    meals: { goodies, day1_snacks, day1_lunch, day1_evening_snacks, day1_dinner, day2_breakfast, day2_lunch, day2_snacks } as Participant["meals"],
     mealHistory: [
       ...(goodies === "collected"
         ? [{ meal: "goodies" as const, time: "08:2" + (i % 10) + " AM", organiser: "Riya S." }]
@@ -67,7 +68,7 @@ export const mockParticipants: Participant[] = names.map((name, i) => {
 export const mockScans: ScanLog[] = Array.from({ length: 24 }).map((_, i) => {
   const p = mockParticipants[i % mockParticipants.length];
   const status = i % 7 === 3 ? "duplicate" : i % 11 === 5 ? "invalid" : "success";
-  const meal = (["goodies", "day1_snacks", "day1_lunch", "day1_evening_snacks", "day1_dinner", "day2_breakfast", "day2_lunch"] as const)[i % 7];
+  const meal = (["goodies", "day1_snacks", "day1_lunch", "day1_evening_snacks", "day1_dinner", "day2_breakfast", "day2_lunch", "day2_snacks"] as const)[i % 8];
   return {
     id: `s_${i + 1}`,
     time: `2026-07-30 ${pad(8 + (i % 12)).slice(1)}:${pad((i * 13) % 60).slice(1)}`,
@@ -123,8 +124,9 @@ export const mockDashboard: DashboardStats = {
     day1_lunch: [40, 80, 130, 170, 208][i],
     day1_evening_snacks: [30, 60, 90, 120, 150][i],
     day1_dinner: [20, 40, 60, 80, 100][i],
-    day2_breakfast: [10, 20, 30, 40, 80][i],
+    day2_breakfast: [10, 20, 30, 40, 60][i],
     day2_lunch: [5, 10, 15, 20, 50][i],
+    day2_snacks: [2, 8, 12, 18, 40][i],
   })),
   recentScans: mockScans.filter((s) => s.status === "success").slice(0, 5),
   recentDuplicates: mockScans.filter((s) => s.status !== "success").slice(0, 4),

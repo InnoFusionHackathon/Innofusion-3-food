@@ -75,7 +75,7 @@ export function HourlyBarChart({ data }: { data: { hour: string; scans: number }
 export function MealTrendChart({
   data,
 }: {
-  data: { day: string; goodies: number; day1_snacks: number; day1_lunch: number; day1_evening_snacks: number; day1_dinner: number; day2_breakfast: number; day2_lunch: number }[];
+  data: { day: string; goodies: number; day1_snacks: number; day1_lunch: number; day1_evening_snacks: number; day1_dinner: number; day2_breakfast: number; day2_lunch: number; day2_snacks: number }[];
 }) {
   return (
     <ResponsiveContainer width="100%" height={260}>
@@ -92,6 +92,7 @@ export function MealTrendChart({
         <Line type="monotone" dataKey="day1_dinner" stroke="var(--chart-5)" strokeWidth={3} dot={false} />
         <Line type="monotone" dataKey="day2_breakfast" stroke="var(--chart-1)" strokeWidth={3} dot={false} />
         <Line type="monotone" dataKey="day2_lunch" stroke="var(--chart-2)" strokeWidth={3} dot={false} />
+        <Line type="monotone" dataKey="day2_snacks" stroke="var(--chart-3)" strokeWidth={3} dot={false} />
       </LineChart>
     </ResponsiveContainer>
   );

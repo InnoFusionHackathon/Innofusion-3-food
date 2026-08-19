@@ -1,4 +1,4 @@
-export type MealType = "entry" | "goodies" | "day1_snacks" | "day1_lunch" | "day1_evening_snacks" | "day1_dinner" | "day2_breakfast" | "day2_lunch";
+export type MealType = "entry" | "goodies" | "day1_snacks" | "day1_lunch" | "day1_evening_snacks" | "day1_dinner" | "day2_breakfast" | "day2_lunch" | "day2_snacks";
 
 export type MealStatus = "collected" | "pending";
 
@@ -40,7 +40,7 @@ export interface DashboardStats {
   pendingMeals: number;
   mealDistribution: { name: string; value: number }[];
   hourlyActivity: { hour: string; scans: number }[];
-  mealTrend: { day: string; goodies: number; day1_snacks: number; day1_lunch: number; day1_evening_snacks: number; day1_dinner: number; day2_breakfast: number; day2_lunch: number }[];
+  mealTrend: { day: string; goodies: number; day1_snacks: number; day1_lunch: number; day1_evening_snacks: number; day1_dinner: number; day2_breakfast: number; day2_lunch: number; day2_snacks: number }[];
   recentScans: ScanLog[];
   recentDuplicates: ScanLog[];
 }
