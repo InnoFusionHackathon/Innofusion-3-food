@@ -168,15 +168,15 @@ export const participantsApi = {
       { ...mockParticipants[0], id } as Participant,
     ),
 
-  /** POST /api/participants/bulk-action  — reset a single meal column for ALL participants */
-  resetAllMeal: (meal: string) =>
+  /** POST /api/participants/bulk-action  — reset one or more meal columns for ALL participants */
+  resetAllMeals: (meals: string[]) =>
     withFallback(
       async () =>
         (
           await http.post(`/participants/bulk-action`, {
             action: "reset_meals",
-            ids: "__all__",   // backend will interpret this
-            meals: [meal],
+            ids: "__all__",
+            meals,
           })
         ).data as { affected: number },
       { affected: 0 },

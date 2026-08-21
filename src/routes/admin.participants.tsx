@@ -73,7 +73,7 @@ function ParticipantsPage() {
 
   // Reset Column state
   const [showResetColumn, setShowResetColumn] = useState(false);
-  const [resetColumnKey, setResetColumnKey] = useState<string | null>(null);
+  const [resetColumnKeys, setResetColumnKeys] = useState<Set<string>>(new Set());
   const [resetColumnConfirmText, setResetColumnConfirmText] = useState("");
   const [isResettingColumn, setIsResettingColumn] = useState(false);
   
@@ -167,7 +167,7 @@ function ParticipantsPage() {
           <Button
             variant="outline"
             className="rounded-2xl font-semibold border-amber-500/50 text-amber-400 hover:bg-amber-500/10"
-            onClick={() => { setResetColumnKey(null); setResetColumnConfirmText(""); setShowResetColumn(true); }}
+            onClick={() => { setResetColumnKeys(new Set()); setResetColumnConfirmText(""); setShowResetColumn(true); }}
           >
             <RotateCcw className="mr-2 h-4 w-4" /> Reset Column
           </Button>
@@ -548,54 +548,69 @@ function ParticipantsPage() {
       </AlertDialog>
     </AdminLayout>
       {/* ── Reset Column Dialog ── */}
-      <AlertDialog open={showResetColumn} onOpenChange={(o) => { if (!o) { setShowResetColumn(false); setResetColumnKey(null); setResetColumnConfirmText(""); } }}>
+      <AlertDialog open={showResetColumn} onOpenChange={(o) => { if (!o) { setShowResetColumn(false); setResetColumnKeys(new Set()); setResetColumnConfirmText(""); } }}>
         <AlertDialogContent className="glass rounded-3xl max-w-md">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-amber-400 flex items-center gap-2">
-              <RotateCcw className="h-5 w-5" /> Reset Column to Pending
+              <RotateCcw className="h-5 w-5" /> Reset Columns to Pending
             </AlertDialogTitle>
             <AlertDialogDescription className="space-y-4">
               <span className="block text-sm text-muted-foreground">
-                Select which column you want to reset to <strong>Pending</strong> for <strong>all participants</strong>.
-                This will write directly to the database and cannot be undone.
+                Select <strong>one or more columns</strong> to reset to <strong>Pending</strong> for <strong>all participants</strong>.
+                This writes directly to the database and cannot be undone.
               </span>
 
-              {/* Column picker */}
+              {/* Multi-select column picker */}
               <div className="grid grid-cols-2 gap-2 pt-1">
                 {([
-                  { key: "entry",                  label: "Entry (Check-In)" },
-                  { key: "goodies",               label: "Goodies" },
-                  { key: "day1_snacks",            label: "D1 – Snacks" },
-                  { key: "day1_lunch",             label: "D1 – Lunch" },
-                  { key: "day1_evening_snacks",    label: "D1 – Evening" },
-                  { key: "day1_dinner",            label: "D1 – Dinner" },
-                  { key: "day2_breakfast",         label: "D2 – Breakfast" },
-                  { key: "day2_lunch",             label: "D2 – Lunch" },
-                  { key: "day2_snacks",            label: "D2 – Snacks" },
-                ] as { key: string; label: string }[]).map(({ key, label }) => (
-                  <button
-                    key={key}
-                    type="button"
-                    onClick={() => setResetColumnKey(key)}
-                    className={[
-                      "rounded-xl border px-3 py-2 text-sm text-left transition-all",
-                      resetColumnKey === key
-                        ? "border-amber-500 bg-amber-500/20 text-amber-300 font-semibold"
-                        : "border-border bg-foreground/5 hover:border-amber-500/40 hover:bg-amber-500/5",
-                    ].join(" ")}
-                  >
-                    {label}
-                  </button>
-                ))}
+                  { key: "entry",               label: "Entry (Check-In)" },
+                  { key: "goodies",             label: "Goodies" },
+                  { key: "day1_snacks",          label: "D1 – Snacks" },
+                  { key: "day1_lunch",           label: "D1 – Lunch" },
+                  { key: "day1_evening_snacks",  label: "D1 – Evening" },
+                  { key: "day1_dinner",          label: "D1 – Dinner" },
+                  { key: "day2_breakfast",       label: "D2 – Breakfast" },
+                  { key: "day2_lunch",           label: "D2 – Lunch" },
+                  { key: "day2_snacks",          label: "D2 – Snacks" },
+                ] as { key: string; label: string }[]).map(({ key, label }) => {
+                  const selected = resetColumnKeys.has(key);
+                  return (
+                    <button
+                      key={key}
+                      type="button"
+                      onClick={() => {
+                        setResetColumnKeys((prev) => {
+                          const next = new Set(prev);
+                          if (next.has(key)) next.delete(key);
+                          else next.add(key);
+                          return next;
+                        });
+                      }}
+                      className={[
+                        "rounded-xl border px-3 py-2 text-sm text-left transition-all flex items-center gap-2",
+                        selected
+                          ? "border-amber-500 bg-amber-500/20 text-amber-300 font-semibold"
+                          : "border-border bg-foreground/5 hover:border-amber-500/40 hover:bg-amber-500/5",
+                      ].join(" ")}
+                    >
+                      <span className={[
+                        "inline-flex h-4 w-4 shrink-0 items-center justify-center rounded border text-xs",
+                        selected ? "border-amber-500 bg-amber-500 text-white" : "border-muted-foreground",
+                      ].join(" ")}>
+                        {selected && "✓"}
+                      </span>
+                      {label}
+                    </button>
+                  );
+                })}
               </div>
 
               {/* Confirmation text */}
-              {resetColumnKey && (
+              {resetColumnKeys.size > 0 && (
                 <div className="pt-2 space-y-1">
                   <p className="text-xs text-muted-foreground">
-                    Type <strong>RESET</strong> to confirm resetting <strong>
-                      {resetColumnKey === "entry" ? "Entry (Check-In)" : resetColumnKey.replace(/_/g, " ")}
-                    </strong> for all participants.
+                    Type <strong>RESET</strong> to confirm resetting{" "}
+                    <strong>{resetColumnKeys.size} column{resetColumnKeys.size > 1 ? "s" : ""}</strong> for all participants.
                   </p>
                   <input
                     type="text"
@@ -612,22 +627,31 @@ function ParticipantsPage() {
             <AlertDialogCancel className="rounded-xl" disabled={isResettingColumn}>Cancel</AlertDialogCancel>
             <AlertDialogAction
               className="rounded-xl bg-amber-600 hover:bg-amber-600/90 text-white"
-              disabled={!resetColumnKey || resetColumnConfirmText !== "RESET" || isResettingColumn}
+              disabled={resetColumnKeys.size === 0 || resetColumnConfirmText !== "RESET" || isResettingColumn}
               onClick={async (e) => {
                 e.preventDefault();
-                if (!resetColumnKey) return;
+                if (resetColumnKeys.size === 0) return;
                 setIsResettingColumn(true);
                 try {
-                  if (resetColumnKey === "entry") {
+                  const mealKeys = [...resetColumnKeys].filter((k) => k !== "entry");
+                  const includesEntry = resetColumnKeys.has("entry");
+
+                  const results: string[] = [];
+
+                  if (includesEntry) {
                     const res = await entryApi.resetAllEntry();
-                    toast.success(`Entry reset for ${res.reset_count} participants`);
-                  } else {
-                    const res = await participantsApi.resetAllMeal(resetColumnKey);
-                    toast.success(`${resetColumnKey.replace(/_/g, " ")} reset for ${res.affected} participants`);
+                    results.push(`Entry: ${res.reset_count} participants`);
                   }
+
+                  if (mealKeys.length > 0) {
+                    const res = await participantsApi.resetAllMeals(mealKeys);
+                    results.push(`${mealKeys.length} meal column(s): ${res.affected} participants`);
+                  }
+
+                  toast.success(`Reset complete — ${results.join(" · ")}`);
                   queryClient.invalidateQueries({ queryKey: ["participants"] });
                   setShowResetColumn(false);
-                  setResetColumnKey(null);
+                  setResetColumnKeys(new Set());
                   setResetColumnConfirmText("");
                 } catch {
                   toast.error("Reset failed. Please try again.");
@@ -636,7 +660,7 @@ function ParticipantsPage() {
                 }
               }}
             >
-              {isResettingColumn ? "Resetting…" : "Reset Column"}
+              {isResettingColumn ? "Resetting…" : `Reset ${resetColumnKeys.size > 0 ? resetColumnKeys.size : ""} Column${resetColumnKeys.size !== 1 ? "s" : ""}`}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
