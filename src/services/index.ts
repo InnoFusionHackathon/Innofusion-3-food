@@ -167,6 +167,20 @@ export const participantsApi = {
       async () => (await http.put(`/participants/${id}/meals`, meals)).data as Participant,
       { ...mockParticipants[0], id } as Participant,
     ),
+
+  /** POST /api/participants/bulk-action  — reset a single meal column for ALL participants */
+  resetAllMeal: (meal: string) =>
+    withFallback(
+      async () =>
+        (
+          await http.post(`/participants/bulk-action`, {
+            action: "reset_meals",
+            ids: "__all__",   // backend will interpret this
+            meals: [meal],
+          })
+        ).data as { affected: number },
+      { affected: 0 },
+    ),
 };
 
 /* ---------------------------------- scans --------------------------------- */
@@ -297,5 +311,13 @@ export const entryApi = {
     withFallback(
       async () => (await http.post(`/participants/${id}/reset-entry`)).data as Participant,
       { ...mockParticipants[0], id } as Participant,
+    ),
+
+  /** POST /api/entry/reset-all — reset entry check-in for ALL participants */
+  resetAllEntry: () =>
+    withFallback(
+      async () =>
+        (await http.post(`/entry/reset-all`)).data as { reset_count: number },
+      { reset_count: 0 },
     ),
 };
